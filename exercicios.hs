@@ -88,21 +88,67 @@ type Peso = Float
 type Esporte = String
 type Pessoa = (Nome, Idade, Peso, Esporte)
 
-bancoDeDados :: Int -> Pessoa
-bancoDeDados identificador | identificador == 1 = ("Joao",21,60.0,"Boxe")
+bd :: Int -> Pessoa
+bd identificador | identificador == 1 = ("Joao",2,60.0,"Boxe")
                             | identificador == 2 = ("Maria",21,60.0,"Corridentificadora")
                             | identificador == 3 = ("Pedro",21,60.0,"--")
                             | otherwise = ("--",0,00.0,"--")
 
-recuperaNome :: Int -> Nome
-recuperaNome identificador = let (n,_,_,_) = bancoDeDados identificador in n
+-- recuperaNome (bd 1)
+recuperaNome :: Pessoa -> Nome
+recuperaNome (x,_,_,_) = x
 
-recuperaidentificadorade :: Int -> Idade
-recuperaidentificadorade identificador = let (_,n,_,_) = bancoDeDados identificador in n
+recuperaIdade :: Pessoa -> Idade
+recuperaIdade (_,x,_,_) = x
 
-recuperaPeso :: Int -> Peso
-recuperaPeso identificador = let (_,_,n,_) = bancoDeDados identificador in n
+recuperaPeso :: Pessoa -> Peso
+recuperaPeso (_,_,x,_) = x
 
-recuperaEsporte :: Int -> Esporte
-recuperaEsporte identificador = let (_,_,_,n) = bancoDeDados identificador in n
-              
+recuperaEsporte :: Pessoa -> Esporte
+recuperaEsporte (_,_,_,x) = x
+
+pessoaMaisNova :: Pessoa -> Pessoa -> Pessoa
+pessoaMaisNova x y | i1 < i2 = x
+                    | otherwise = y
+                    where i1 = recuperaIdade x
+                          i2 = recuperaIdade y
+
+soma_where::Int
+soma_where = b + c
+        where b = 1;
+              c = 2;
+
+soma_let::Int
+soma_let = let b = 1
+               c = 2
+               in b + c
+
+fibonacci :: Int -> Int
+fibonacci 0 = 0
+fibonacci 1 = 1
+fibonacci n = (fibonacci (n - 2)) + (fibonacci (n - 1))
+
+quantidadeMultiplos7 :: Int -> Int
+quantidadeMultiplos7 7 = 1
+quantidadeMultiplos7 n | n <= 6 = 0
+                        | otherwise = 1 + quantidadeMultiplos7 (n-7)
+
+potencia :: Int -> Int -> Int
+potencia n p | p == 0 = 1
+             | otherwise = n * potencia n (p-1)
+
+verificaPar :: Int -> Bool
+verificaPar n | n == 0 = True
+              | otherwise = not(verificaPar((n-1)))
+
+somatorio :: Int -> Int
+somatorio n | n == 0 = 0
+            | otherwise = n + somatorio((n-1))
+
+produtorio :: [Int] -> Int
+produtorio [] = 1
+produtorio (x:xs) = x * produtorio xs
+
+quantidade :: [a] -> Int
+quantidade [] = 0
+quantidade (_:xs) = 1 + quantidade xs
