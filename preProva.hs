@@ -92,3 +92,12 @@ pegarMaior :: Ord a => [a] -> a -> a
 pegarMaior [] numAtual = numAtual
 pegarMaior (x:xs) numAtual | x < numAtual = pegarMaior xs numAtual
                            | otherwise = pegarMaior xs x 
+
+insert :: Ord a => a -> [a] -> [a]
+insert x [] = [x]
+insert x (y:ys) | x < y     = x:y:ys
+                | otherwise = y:(insert x ys)
+
+isort :: Ord a => [a] -> [a]
+isort [] = []
+isort (x:xs) = insert x (isort xs)
