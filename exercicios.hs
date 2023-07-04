@@ -1,3 +1,5 @@
+import Data.Char
+
 soma :: Integer -> Integer -> Integer
 soma x y = x + y
 
@@ -152,3 +154,76 @@ produtorio (x:xs) = x * produtorio xs
 quantidade :: [a] -> Int
 quantidade [] = 0
 quantidade (_:xs) = 1 + quantidade xs
+
+alfabeto :: [Char]
+alfabeto = ['a'..'z']
+
+numeros :: [Integer]
+numeros = [200,199..0]
+
+inverso :: [a] -> [a]
+inverso [] = []
+inverso (x:xs) = (inverso xs) ++ [x]
+
+get_n :: Int -> [a] -> [a]
+get_n 0 _ = []
+get_n _ [] = []
+get_n n (x:xs) = x : get_n (n-1) (xs)
+
+del_n :: Int -> [a] -> [a]
+del_n 0 l = l
+del_n _ [] = []
+del_n n (_:xs) = del_n (n-1) (xs)
+
+del_ultimo :: [a] -> [a]
+del_ultimo [] = []
+del_ultimo (_:[]) = []
+del_ultimo (x:xs) = x : del_ultimo xs
+
+myConcat :: [[a]] -> [a]
+myConcat xss = [x | xs <- xss, x <- xs]
+
+divisores :: Int -> [Int]
+divisores n = [x | x <- [1..n], n `mod` x == 0]
+
+primo :: Int -> Bool
+primo n = divisores n == [1,n]
+
+primos :: Int -> [Int]
+primos n = [x | x <- [1..n], primo x]
+
+zipar :: [a] -> [b] -> [(a,b)]
+zipar (a:as) (b:bs) = (a,b) : zipar as bs
+zipar _ _ = []
+
+pares :: [a] -> [(a,a)]
+pares xs = zipar xs (tail xs)
+
+crescente :: Ord a => [a] -> Bool
+crescente xs = and [x <= y | (x,y) <- pares xs]
+
+indices :: Eq a => a -> [a] -> [Int]
+indices x ys = [i | (i,y) <- zipar [0..n] ys, x == y]
+    where n = length ys - 1
+
+minusculas :: String -> Int
+minusculas txt = length [c | c <- txt,
+                        c >= 'a' && c <= 'z']
+
+duasVezes :: (a -> a) -> a -> a
+duasVezes f x = f (f x)
+
+dobra :: Int -> Int
+dobra x = 2 * x
+
+triplica :: Int -> Int
+triplica x = 3 * x
+
+app :: (a->b) -> (a,a) -> (b,b)
+app f (x,y) = (f x, f y)
+
+mult :: Int -> Int -> Int
+mult x y = x * y
+
+dobrar :: Int -> Int
+dobrar = mult 2
